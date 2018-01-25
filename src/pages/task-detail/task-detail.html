@@ -1,0 +1,242 @@
+<ion-header>
+  <ion-navbar>
+    <button menuToggle *ngIf="!selectedTask">
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <!--
+     <ion-toolbar>
+        <ion-segment [(ngModel)]="pet">
+            <ion-segment-button value="kittens">
+              基本資訊
+            </ion-segment-button>
+            <ion-segment-button value="puppies">
+              記錄
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
+    -->
+    <ion-title>基本資訊</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content [ngSwitch]="TaskStatus">
+  <div *ngSwitchCase="0">
+    <div align="left" style="margin-top:12px; padding-left:16px; ">
+      <span style="color:#6C276A; font-size:18px; font-weight:bold">編號: {{selectedTask.case_num}}</span><br><br>
+      <span style="color:#6C276A; font-size:16px; font-weight:bold">分店 : #{{selectedTask.shop_code}} {{selectedTask.shop}}</span> 
+      <br><a *ngIf="selectedTask.shop_tel" [attr.href]="telHREF" ion-button small >致電分店</a>
+      <br><br>
+      <ion-list style="margin-bottom:5px;" id="task-detail-list">
+        <ion-item>
+          <ion-label class="header" fixed>機器編號</ion-label>
+          <ion-label class="readonly">{{selectedTask.device_num}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label class="header" fixed>報告日期</ion-label>
+          <ion-label class="readonly">{{selectedTask.input_date}}</ion-label>
+        </ion-item>
+        <ion-item text-wrap>
+          <ion-label class="header" fixed>求助事宜</ion-label>
+          <ion-label class="readonly">{{selectedTask.project_type_name}}-{{selectedTask.project_name}}-{{selectedTask.help_name}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label class="header" fixed>落call同事</ion-label>
+          <ion-label class="readonly">{{selectedTask.call_staff}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label class="header" fixed>重要性</ion-label>
+          <ion-label class="readonly">{{selectedTask.impo}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label class="header" fixed>分流級別</ion-label>
+          <ion-label class="readonly"></ion-label>
+        </ion-item>
+        <ion-item text-wrap >
+          <ion-label class="header" fixed>其他資料提供</ion-label>
+          <ion-label class="readonly">{{selectedTask.details}}</ion-label>
+        </ion-item>
+      </ion-list>
+
+      <div *ngIf="userType >= 2">
+        <span style="color:#6C276A; font-size:18px; font-weight:bold;">分配</span><br>
+        <ion-row *ngFor="let r of fRow0;">
+          <ion-col width-33 *ngFor="let f of r;">
+            <ion-checkbox (ionChange)="checkboxChange($event, 1, f.int_id)"></ion-checkbox>
+            <div class="checkbox-text">{{f.chr_name}}</div>
+          </ion-col>
+        </ion-row>
+        <span style="color:#6C276A; font-size:18px; font-weight:bold;">外判商</span><br>
+        <ion-row *ngFor="let r of fRow1;">
+          <ion-col width-33 *ngFor="let f of r;">
+            <ion-checkbox (ionChange)="checkboxChange($event, 2, f.int_id)"></ion-checkbox>
+            <div class="checkbox-text">{{f.chr_name}}</div>
+          </ion-col>
+        </ion-row>
+        <button ion-button item-right (click)="assignFollower()" style="padding:12px 20px;font-size:16px; float:right;" >提交</button>
+      </div>
+
+      <div *ngIf="userType == 1" align="center">
+        <button ion-button (click)="followTask()">領取</button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngSwitchCase="1">
+    <div align="center" style="margin-top:0px; padding:1px;">
+      <button ion-button disabled color="grey" round>指派日期：{{selectedTask.allocation_date}} ({{selectedTask.dtff}}天)</button>
+    </div>
+
+    <div align="left" style="margin-top:5px; padding-left:16px; ">
+      <span style="color:#6C276A; font-size:18px; font-weight:bold">編號: {{selectedTask.case_num}}</span><br><br>
+      <span style="color:#6C276A; font-size:16px; font-weight:bold">分店 : #{{selectedTask.shop_code}} {{selectedTask.shop}}</span>
+      <br><a *ngIf="selectedTask.shop_tel" [attr.href]="telHREF" ion-button small >致電分店</a>
+      <br><br>
+      <ion-list id="task-detail-list">
+        <ion-item>
+          <ion-label class="header" fixed>機器編號</ion-label>
+          <ion-input [value]="device_num" [(ngModel)]="device_num"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label class="header" fixed>報告日期</ion-label>
+          <ion-label class="readonly">{{selectedTask.input_date}}</ion-label>
+        </ion-item>
+        <ion-item  text-wrap>
+          <ion-label class="header" fixed>求助事宜</ion-label>
+          <ion-label class="readonly">{{selectedTask.project_type_name}}-{{selectedTask.project_name}}-{{selectedTask.help_name}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label class="header" fixed>落call同事</ion-label>
+          <ion-label class="readonly">{{selectedTask.call_staff}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label class="header" fixed>重要性</ion-label>
+          <ion-label class="readonly">{{selectedTask.impo}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label class="header" fixed>分流級別</ion-label>
+          <ion-label class="readonly"></ion-label>
+        </ion-item>
+        <ion-item text-wrap>
+          <ion-label class="header" fixed>其他資料提供</ion-label>
+          <ion-label class="readonly">{{selectedTask.details}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label class="header" fixed>跟進日期</ion-label>
+          <ion-datetime id="closeDate"
+              [ngModel]="closeDate"
+              (ngModelChange)="testing2($event)"
+              (ionCancel)="clearDate()"
+              cancelText="清除"
+              doneText="確定"
+              displayFormat="YYYY-MM-DD" 
+              pickerFormat="YYYY MMM DD">
+          </ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label class="header" fixed>跟進結果</ion-label>
+          <ion-input [value]="followed_results" [(ngModel)]="followed_results"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label class="header" fixed>備　　註</ion-label>
+          <ion-input [value]="follower_remarks" [(ngModel)]="follower_remarks"></ion-input>
+        </ion-item>
+        <button ion-item (click)="testing()">
+          <ion-label class="header" fixed>上傳相片</ion-label>
+          <ion-label id="lb-upload-photo"></ion-label>
+        </button>
+        <button ion-item (click)="openParts()">
+          <ion-label class="header" fixed>維修零件</ion-label>
+          <ion-label id="lb-repair-parts"></ion-label>
+        </button>
+        <ion-item>
+          <ion-label class="header" fixed>維修費用</ion-label>
+          <ion-select [(ngModel)]="RepairPrice" style="padding-left:0px;">
+            <ion-option value="0">免費</ion-option>
+            <ion-option value="100">$100</ion-option>
+            <ion-option value="200">$200</ion-option>
+            <ion-option value="330">$330</ion-option>
+            <ion-option value="550">$550 - 急單</ion-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label class="header" fixed>已完成</ion-label>
+            <ion-checkbox color="dark" checked="false" item-right [(ngModel)]="replied"></ion-checkbox>
+        </ion-item>
+      </ion-list>
+      <button ion-button style="float:right; padding:12px 20px;font-size:16px;" (click)="updateFolloweResult()">提交</button>
+
+    </div>
+  </div>
+
+  <div *ngSwitchCase="2">
+    <div align="center" style="margin-top:0px; padding:1px;">
+      <button ion-button disabled color="grey" round>指派日期：{{selectedTask.allocation_date}} ({{selectedTask.dtff}}天)</button>
+    </div>
+
+    <div align="left" style="margin-top:5px; padding-left:16px; ">
+      <span style="color:#6C276A; font-size:18px; font-weight:bold">編號: {{selectedTask.case_num}}</span><br><br>
+      <span style="color:#6C276A; font-size:16px; font-weight:bold">分店 : #{{selectedTask.shop_code}} {{selectedTask.shop}}</span>
+      <br><a *ngIf="selectedTask.shop_tel" [attr.href]="telHREF" ion-button small >致電分店</a>
+      <br><br>
+      <ion-list id="task-detail-list">
+        <ion-item>
+          <ion-label class="header" fixed>機器編號</ion-label>
+          <ion-input [value]="device_num" [(ngModel)]="device_num"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label class="header" fixed>報告日期</ion-label>
+          <ion-label class="readonly">{{selectedTask.input_date}}</ion-label>
+        </ion-item>
+        <ion-item  text-wrap>
+          <ion-label class="header" fixed>求助事宜</ion-label>
+          <ion-label class="readonly">{{selectedTask.project_type_name}}-{{selectedTask.project_name}}-{{selectedTask.help_name}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label class="header" fixed>落call同事</ion-label>
+          <ion-label class="readonly">{{selectedTask.call_staff}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label class="header" fixed>重要性</ion-label>
+          <ion-label class="readonly">{{selectedTask.impo}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label class="header" fixed>分流級別</ion-label>
+          <ion-label class="readonly"></ion-label>
+        </ion-item>
+        <ion-item text-wrap>
+          <ion-label class="header" fixed>其他資料提供</ion-label>
+          <ion-label class="readonly">{{selectedTask.details}}</ion-label>
+        </ion-item>
+      </ion-list>
+    </div>
+
+    <div *ngIf="userType >= 2">
+      <span style="color:#6C276A; font-size:18px; font-weight:bold;">分配</span><br>
+      <ion-row *ngFor="let r of fRow0;">
+        <ion-col width-33 *ngFor="let f of r;">
+          <ion-checkbox (ionChange)="checkboxChange($event, 1, f.int_id)" [checked]="f.checked"></ion-checkbox>
+          <div class="checkbox-text">{{f.chr_name}}</div>
+        </ion-col>
+      </ion-row>
+      <span style="color:#6C276A; font-size:18px; font-weight:bold;">外判商</span><br>
+      <ion-row *ngFor="let r of fRow1;">
+        <ion-col width-33 *ngFor="let f of r;">
+          <ion-checkbox (ionChange)="checkboxChange($event, 2, f.int_id)" [checked]="f.checked"></ion-checkbox>
+          <div class="checkbox-text">{{f.chr_name}}</div>
+        </ion-col>
+      </ion-row>
+      <button ion-button item-right (click)="assignFollower()" style="padding:12px 20px;font-size:16px; float:right;" >提交</button>
+    </div>
+
+  </div>
+    <!--
+ <div *ngIf="selectedItem" class="selection">
+    <b>{{selectedItem.title}}</b>
+    <ion-icon name="{{selectedItem.icon}}"></ion-icon>
+    <div>
+      You navigated here from <b>{{selectedItem.title}}</b>
+    </div>
+  </div>
+  -->
+</ion-content>

@@ -1,0 +1,9 @@
+#tool-bar-background{
+    max-height:50px; min-height: 50px;  padding:0px;
+
+    .item-block { padding:0px; }
+    .tool{ width:50%; max-height:50px; min-height: 50px; float:left; display:table; text-align: center; }
+    .tool.left { border-right: 1px solid rgb(178, 178, 178); }
+    .tool.right{ border-left : 1px solid rgb(178, 178, 178); }
+    
+}

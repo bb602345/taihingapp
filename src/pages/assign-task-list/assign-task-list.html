@@ -1,0 +1,82 @@
+<!--
+  Generated template for the AssignTaskList page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button icon-only menuToggle >
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-title>已分配任務 - <span ion-text color="primary">{{ShopFilter}}</span></ion-title>
+
+    <ion-buttons end>
+        <button ion-button icon-only  (click)="clickSearch()">
+            <ion-icon name="search"></ion-icon>
+        </button>
+    </ion-buttons>
+  </ion-navbar>
+
+  <ion-toolbar id="tool-bar-background">
+    <!-- <button ion-item detail-none class="tool left"  (click)="showFilterAlert()">篩選</button> -->
+    <button ion-item detail-none class="tool right" (click)="showSortAlert()">排序 - <span ion-text color="primary">{{SortOpt}}</span></button>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+ <ion-refresher pullMin="70" pullMax="200" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="下拉更新"
+      refreshingSpinner="circles"
+      refreshingText="更新中...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <!--
+  <ion-item>
+      <ion-label>編號:</ion-label>
+      <ion-input class="formInput" placeholder="請輸入編號" (input)='onSearchChange($event.target.value)'></ion-input>
+  </ion-item>
+  -->
+
+  <ion-list class="task-list" >
+    <!-- Task Item -->
+    <button ion-item class="item-top" *ngFor="let task of Tasks" (click)="taskTapped($event, task)" detail-none>
+        <div class="task" >
+            <div class="task-header">
+                <ion-icon name="ios-document" class="left"></ion-icon>
+                <div class="left-top">
+                    編號: {{task.case_num}} 
+                    &nbsp;
+                    <ion-icon name="ios-radio-button-on" [style.color]="task.color"></ion-icon>
+                        <span *ngIf="task.isShop">#{{task.shop_code}} {{task.shop}}</span>
+                        <span *ngIf="!task.isShop">{{task.shop}}</span>
+                    <br>
+                    <span class="small" style="margin-left:15px">提交: {{task.input_date}}</span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="small">指派: {{task.allocation_date}} ({{task.dtff}})</span>
+                </div>
+                <ion-icon name="ios-arrow-forward" class="right"></ion-icon>
+            </div>
+            <div class="task-content">
+                <div class="line-1">
+                    <div class="left-inline-first">{{task.staff_name}}</div>
+                </div>
+                <div class="line-2">
+                    <div class="left-inline-first">{{task.project_type_name}} - {{task.project_name}} - {{task.help_name}}</div>
+                </div>
+                <div class="line-3">
+                    <div class="left-inline-first"><span class="grey">其他資料:</span> {{task.details}}</div>
+                </div>
+            </div>
+        </div>
+    </button>
+    <!-- Task Item -->
+  </ion-list>
+  
+</ion-content>
+

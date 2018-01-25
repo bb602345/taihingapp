@@ -1,0 +1,44 @@
+.item ion-label{
+    color:black;
+}
+
+.action-sheet-title{
+    color:black;
+    font-weight: bold;
+    background-color: #CCFFFF;
+}
+
+.action-sheet-button{
+    border-top: 1px solid #dedede;
+}
+
+.action-sheet-selected{
+    color: blue;
+}
+
+.formInput{
+    position: absolute;
+    right: 10px;
+}
+
+ion-infinite-scroll-content{
+    padding-top: 25px;
+}
+
+.menu-inner{
+    width: 182px;
+}
+
+ion-title{
+    padding: 0px !important;
+}
+
+#tool-bar-background{
+    max-height:50px; min-height: 50px;  padding:0px;
+
+    .item-block { padding:0px; }
+    .tool{ width:100%; max-height:50px; min-height: 50px; float:left; display:table; text-align: center; }
+    .tool.left { border-right: 1px solid rgb(178, 178, 178); }
+    .tool.right{ border-left : 1px solid rgb(178, 178, 178); }
+    
+}
