@@ -35,13 +35,18 @@ export class AssignTaskListPage {
   long:number; 
   subscription: any;
 
+  userID: number;
+
   constructor(public menuCtrl: MenuController, public alertCtrl: AlertController,
       public navCtrl: NavController, navParams: NavParams, platform: Platform,
       public taskList :TaskList, public storage:Storage) {
     // If we navigated to this page, we will have an item available as a nav param
     platform.ready().then(() => {
       this.refresh();
-      
+      this.storage.get("USER").then(data=>{
+        data = JSON.parse(data);
+        this.userID = data["user_id"];
+      });
       /*
       Geolocation.getCurrentPosition().then((resp) => {
          this.lat  = resp.coords.latitude;

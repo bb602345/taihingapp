@@ -25,6 +25,8 @@ export class UnhandleTasksListPage {
   SortChecked  : number = 0;
   SortOpt: string = "提交日期";
 
+  userID: number
+
   constructor(public navCtrl: NavController, 
               public navParams: NavParams, 
               public taskList :TaskList, 
@@ -33,31 +35,11 @@ export class UnhandleTasksListPage {
               public storage: Storage) {
     this.selectedTask = navParams.get('item');
     platform.ready().then(() => {
-      /*
-      Geolocation.getCurrentPosition().then((resp) => {
-         this.lat  = resp.coords.latitude;
-         this.long = resp.coords.longitude;
-         console.log( "lat : " + resp.coords.latitude);
-         console.log( "long: " + resp.coords.longitude);
-      }).catch((error) => {
-        console.log('Error getting location', error);
+      this.storage.get("USER").then(data=>{
+        data = JSON.parse(data);
+        this.userID = data["user_id"];
       });
-
-      let watch = Geolocation.watchPosition();
-      this.subscription = watch.subscribe((data) => {
-        console.log("subscribe");
-        if(data as Geoposition){
-          let pos = (data as Geoposition);
-          this.lat  = pos.coords.latitude;
-          this.long = pos.coords.longitude;
-          console.log( "lat : " + pos.coords.latitude);
-          console.log( "long: " + pos.coords.longitude);
-        }else{
-          let err = (data as PositionError);
-          console.log(err.message);
-        }
-      });
-      */
+      
     });
   }
   ionViewWillEnter(){
