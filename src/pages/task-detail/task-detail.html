@@ -59,14 +59,14 @@
       </ion-list>
 
       <div *ngIf="userType >= 2">
-        <span style="color:#6C276A; font-size:18px; font-weight:bold;">分配</span><br>
+        <span style="color:#6C276A; font-size:18px; font-weight:bold;" *ngIf="showStaff">分配</span><br>
         <ion-row *ngFor="let r of fRow0;">
           <ion-col width-33 *ngFor="let f of r;">
             <ion-checkbox (ionChange)="checkboxChange($event, 1, f.int_id)"></ion-checkbox>
             <div class="checkbox-text">{{f.chr_name}}</div>
           </ion-col>
         </ion-row>
-        <span style="color:#6C276A; font-size:18px; font-weight:bold;">外判商</span><br>
+        <span style="color:#6C276A; font-size:18px; font-weight:bold;" *ngIf="showContractor">外判商</span><br>
         <ion-row *ngFor="let r of fRow1;">
           <ion-col width-33 *ngFor="let f of r;">
             <ion-checkbox (ionChange)="checkboxChange($event, 2, f.int_id)"></ion-checkbox>

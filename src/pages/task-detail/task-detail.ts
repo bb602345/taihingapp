@@ -41,6 +41,9 @@ export class TaskDetailPage {
   followerIdList: Array<number>;
   Parent: any;
 
+  showStaff: boolean;
+  showContractor: boolean;
+
   private imageDataURL: string;
   public set data(d: string){
     this.imageDataURL = d;
@@ -87,6 +90,9 @@ export class TaskDetailPage {
     this.followerAssign = new Array();
     this.contractorAssign = new Array();
 
+    this.showStaff = true;
+    this.showContractor = true;
+
     storage.get("USER").then((val)=>{
       let data = JSON.parse(val);
       this.userID = data.user_id;
@@ -113,7 +119,7 @@ export class TaskDetailPage {
   }
 
   initFollowerList(){
-    this.followerList.getFollowerList(()=>{
+    this.followerList.getFollowerList(this.userType, ()=>{
       let fList = this.followerList.FollowerList;
 
       let fRow0 = fList.filter((value)=>{ return value.type == 0; })
@@ -151,7 +157,17 @@ export class TaskDetailPage {
         if(row.length == 3 || i + 1 == fRow1.length)
           this.fRow1.push(row);
       }
+      
+      if(this.fRow1.length == 0)
+      this.showContractor = false;
+      if(this.fRow0.length == 0)
+        this.showStaff = false;
+
+      console.log(this.showContractor);
+      console.log(this.fRow1.length);
+      console.log(this.fRow1.length == 0);
     });
+
   }
   ionViewDidLoad(){
     if(this.TaskStatus == 0 || this.TaskStatus == 2) return;
