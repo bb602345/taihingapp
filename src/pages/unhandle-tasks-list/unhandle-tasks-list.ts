@@ -25,7 +25,8 @@ export class UnhandleTasksListPage {
   SortChecked  : number = 0;
   SortOpt: string = "提交日期";
 
-  userID: number
+  userID: number;
+  userType: number;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams, 
@@ -38,12 +39,13 @@ export class UnhandleTasksListPage {
       this.storage.get("USER").then(data=>{
         data = JSON.parse(data);
         this.userID = data["user_id"];
+        this.userType = data["user_type"];
       });
       
     });
   }
   ionViewWillEnter(){
-    this.taskList.getUnhandleTaskList()
+    this.taskList.getUnhandleTaskList(this.userType)
         .then(data => this.Tasks = data );
     
   }
@@ -99,7 +101,7 @@ export class UnhandleTasksListPage {
 
   refresh(){
     console.log("doRefresh");
-    this.taskList.getUnhandleTaskList()
+    this.taskList.getUnhandleTaskList(this.userType)
         .then(data => {
           this.Tasks = data;
           this.taskList.SortTaskList(this.SortChecked).then(data => this.Tasks = data);

@@ -36,16 +36,17 @@ export class AssignTaskListPage {
   subscription: any;
 
   userID: number;
+  userType: number;
 
   constructor(public menuCtrl: MenuController, public alertCtrl: AlertController,
       public navCtrl: NavController, navParams: NavParams, platform: Platform,
       public taskList :TaskList, public storage:Storage) {
     // If we navigated to this page, we will have an item available as a nav param
     platform.ready().then(() => {
-      this.refresh();
       this.storage.get("USER").then(data=>{
         data = JSON.parse(data);
         this.userID = data["user_id"];
+        this.userType = data["user_type"];
       });
       /*
       Geolocation.getCurrentPosition().then((resp) => {
@@ -108,7 +109,17 @@ export class AssignTaskListPage {
       this.restore();
     this.storage.get("FILTER").then((shop)=>{
       this.ShopFilter = (shop) ? shop.shopCode + " " + shop.shopName : "全部" ;
-      //this.refresh();
+    });
+    this.taskList.getAllUserTaskList(this.userType, ()=>{
+      this.TaskFull = this.taskList.currentTaskList; 
+      this.Tasks = this.taskList.currentTaskList;
+
+      this._sort(this.SortChecked);
+      for(let l in this.FilterChecked){
+        if(this.FilterChecked[l])
+          this._filter(l);
+      }
+      (<HTMLElement> this.list._elementRef.nativeElement).style.display = "";
     });
   }
   ionViewDidLeave(){
@@ -222,7 +233,7 @@ export class AssignTaskListPage {
 
   refresh(){
     console.log("refresh");
-    this.taskList.getAllUserTaskList(()=>{
+    this.taskList.getAllUserTaskList(this.userType, ()=>{
       this.TaskFull = this.taskList.currentTaskList; 
       this.Tasks = this.taskList.currentTaskList;
 

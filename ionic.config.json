@@ -1,6 +1,8 @@
 {
   "name": "TaiHingApp",
   "app_id": "5cab03df",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "ionic-angular"
 }

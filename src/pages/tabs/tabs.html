@@ -1,5 +1,6 @@
 <ion-tabs class="tabs-basic" #tabsCtrl id="tabs" swipeBackEnabled="false">
   <ion-tab [root]="tab1" tabIcon="water" tabTitle="已分配任務"></ion-tab>
-  <ion-tab [root]="tab2" tabIcon="water" tabTitle="未分配任務"></ion-tab>
-  <ion-tab [root]="tab3" tabIcon="water" tabTitle="所有已分配任務" *ngIf="userType >= 2"></ion-tab>
+
+  <ion-tab [root]="tab2" tabIcon="water" tabTitle="未分配任務" *ngIf="showTab2"></ion-tab>
+  <ion-tab [root]="tab3" tabIcon="water" tabTitle="所有已分配任務" *ngIf="showTab3"></ion-tab>
 </ion-tabs>

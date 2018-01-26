@@ -20,6 +20,7 @@ export class NewTaskListPage {
   Tasks: Array<Task>;
 
   userID: number;
+  userType: number;
   FilterChecked: Map<string, boolean>; 
 
   ShopFilter: string = "全部";
@@ -39,6 +40,7 @@ export class NewTaskListPage {
       this.storage.get("USER").then(data=>{
         data = JSON.parse(data);
         this.userID = data["user_id"];
+        this.userType = data["user_type"];
         this.refresh(this.userID);
       });
       

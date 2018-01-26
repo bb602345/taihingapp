@@ -31,11 +31,11 @@ export class FilterPage {
 
   constructor(public navCtrl: NavController, navParams: NavParams, shopList: ShopList, public storage: Storage) {
     this.parentDelegate = navParams.get("parentDelegate");
-    shopList.getShopList(this.parentDelegate.userID, (shopList) => {
-      shopList.unshift(
-        {shopCode: "全部", shopName: ""},
-        {shopCode: "後勤", shopName: ""}
-      )
+    shopList.getShopList(this.parentDelegate.userType, (shopList) => {
+      shopList.unshift({shopCode: "全部", shopName: ""});
+      if(this.parentDelegate.userType < 3){
+        shopList.unshift({shopCode: "後勤", shopName: ""});
+      }
       this.FullShopList = shopList;
       this.shopList = shopList;
     });

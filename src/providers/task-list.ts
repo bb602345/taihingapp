@@ -35,8 +35,8 @@ export class TaskList {
     err => console.log("HEEE:", err));
   }
 
-  getAllUserTaskList(callBack: Function){
-    this.http.get('http://taihingroast.com/soap/RepairTask/getRepairTaskList.php')
+  getAllUserTaskList(userType: number, callBack: Function){
+    this.http.get('http://taihingroast.com/soap/RepairTask/getRepairTaskList.php?userType=' + userType)
     .map(res => res.json())
     .subscribe(data => {
         this.currentTaskList = [];
@@ -56,11 +56,11 @@ export class TaskList {
       this.index++;
     });
   }
-  getUnhandleTaskList(): Promise<Task[]>{
+  getUnhandleTaskList(userType: number): Promise<Task[]>{
     let h = this.http;
     this.index = 1;
     return new Promise<Task[]>((resolve, reject)=>{
-      h.get('http://taihingroast.com/soap/RepairTask/getUnhandleTaskList.php')
+      h.get('http://taihingroast.com/soap/RepairTask/getUnhandleTaskList.php?userType=' + userType)
         .map(res => res.json())
         .subscribe(data => {
           this.FullList = [];
