@@ -14,8 +14,8 @@ export class FollowerList {
   
   constructor(private http: Http) {}
 
-  getFollowerList(userType: number, callBack: Function){
-    this.http.get('http://taihingroast.com/soap/RepairTask/getFollowerList.php?userType=' + userType)
+  getFollowerList(userID: number, callBack: Function){
+    this.http.get('http://taihingroast.com/soap/RepairTask/getFollowerList.php?userID=' + userID)
     .map(res => res.json())
     .subscribe(data => {
 

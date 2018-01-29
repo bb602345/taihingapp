@@ -27,6 +27,7 @@ export class UnhandleTasksListPage {
 
   userID: number;
   userType: number;
+  foreigncontractor: number;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams, 
@@ -40,12 +41,13 @@ export class UnhandleTasksListPage {
         data = JSON.parse(data);
         this.userID = data["user_id"];
         this.userType = data["user_type"];
+        this.foreigncontractor = data["foreigncontractor"];
       });
       
     });
   }
   ionViewWillEnter(){
-    this.taskList.getUnhandleTaskList(this.userType)
+    this.taskList.getUnhandleTaskList(this.userID)
         .then(data => this.Tasks = data );
     
   }
@@ -101,7 +103,7 @@ export class UnhandleTasksListPage {
 
   refresh(){
     console.log("doRefresh");
-    this.taskList.getUnhandleTaskList(this.userType)
+    this.taskList.getUnhandleTaskList(this.userID)
         .then(data => {
           this.Tasks = data;
           this.taskList.SortTaskList(this.SortChecked).then(data => this.Tasks = data);

@@ -44,10 +44,12 @@ export class LoginPage {
        let obj = resp.json();
        switch (obj["result"]){
          case "OK":
+         console.log(obj);
           let data = JSON.stringify({
             user_id: obj.int_id,
             user_type: obj.int_type,
-            user_name: obj.txt_name
+            user_name: obj.txt_name,
+            foreigncontractor: obj.int_foreigncontractor_id
           });
           document.getElementById("app-menu").style.display = "";
           document.getElementById("lb-user-name").innerHTML = obj.txt_name;

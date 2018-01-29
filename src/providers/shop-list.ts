@@ -15,9 +15,9 @@ export class ShopList {
     console.log('Hello ShopList Provider');
   }
 
-  getShopList(userType: number, callback:(shopList:Array<{shopCode: string, shopName: string}>) => void){
+  getShopList(userID: number, callback:(shopList:Array<{shopCode: string, shopName: string}>) => void){
     let result = new Array<{shopCode: string, shopName: string}>();
-    this.http.get('http://taihingroast.com/soap/RepairTask/getShopList.php?userType=' + userType)
+    this.http.get('http://taihingroast.com/soap/RepairTask/getShopList.php?userID=' + userID)
     .map(res => res.json())
     .subscribe(data => {
       data.forEach(v => {

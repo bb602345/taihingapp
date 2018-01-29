@@ -37,6 +37,7 @@ export class AssignTaskListPage {
 
   userID: number;
   userType: number;
+  foreigncontractor: number;
 
   constructor(public menuCtrl: MenuController, public alertCtrl: AlertController,
       public navCtrl: NavController, navParams: NavParams, platform: Platform,
@@ -47,6 +48,7 @@ export class AssignTaskListPage {
         data = JSON.parse(data);
         this.userID = data["user_id"];
         this.userType = data["user_type"];
+        this.foreigncontractor = data["foreigncontractor"];
       });
       /*
       Geolocation.getCurrentPosition().then((resp) => {
@@ -110,7 +112,7 @@ export class AssignTaskListPage {
     this.storage.get("FILTER").then((shop)=>{
       this.ShopFilter = (shop) ? shop.shopCode + " " + shop.shopName : "全部" ;
     });
-    this.taskList.getAllUserTaskList(this.userType, ()=>{
+    this.taskList.getAllUserTaskList(this.userID, ()=>{
       this.TaskFull = this.taskList.currentTaskList; 
       this.Tasks = this.taskList.currentTaskList;
 
@@ -233,7 +235,7 @@ export class AssignTaskListPage {
 
   refresh(){
     console.log("refresh");
-    this.taskList.getAllUserTaskList(this.userType, ()=>{
+    this.taskList.getAllUserTaskList(this.userID, ()=>{
       this.TaskFull = this.taskList.currentTaskList; 
       this.Tasks = this.taskList.currentTaskList;
 

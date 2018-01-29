@@ -21,6 +21,8 @@ export class NewTaskListPage {
 
   userID: number;
   userType: number;
+  foreigncontractor: number;
+
   FilterChecked: Map<string, boolean>; 
 
   ShopFilter: string = "全部";
@@ -41,7 +43,8 @@ export class NewTaskListPage {
         data = JSON.parse(data);
         this.userID = data["user_id"];
         this.userType = data["user_type"];
-        this.refresh(this.userID);
+        this.foreigncontractor = data["foreigncontractor"];
+        this.refresh(this.userID, this.userType);
       });
       
     });
@@ -50,7 +53,7 @@ export class NewTaskListPage {
 
   ionViewWillEnter(){
     if(this.userID != null)
-      this.refresh(this.userID);
+      this.refresh(this.userID, this.userType);
   }
   ionViewDidLoad(){
     console.log("ionViewDidLoad");
@@ -123,9 +126,9 @@ export class NewTaskListPage {
       });
   }
 
-  refresh(userID: number){
+  refresh(userID: number, userType: number){
     console.log("refresh");
-    this.taskList.getUserTaskList(userID, ()=>{
+    this.taskList.getUserTaskList(userID, userType,  ()=>{
       this.TaskFull = this.taskList.currentTaskList; 
       this.Tasks = this.taskList.currentTaskList;
 
@@ -136,7 +139,7 @@ export class NewTaskListPage {
   }
 
   doRefresh(refresher){
-    this.refresh(this.userID);
+    this.refresh(this.userID, this.userType);
     setTimeout(() => {
       refresher.complete();
     }, 500);

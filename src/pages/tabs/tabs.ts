@@ -21,7 +21,7 @@ export class TabsPage {
   tab2 = UnhandleTasksListPage;
   tab3 = AssignTaskListPage;
 
-  userType: string;
+  userPermission: string;
   showTab2: boolean;
   showTab3: boolean;
 
@@ -31,20 +31,19 @@ export class TabsPage {
       this.storage.get("USER").then(data => {
         console.log(data);
         data = JSON.parse(data);
-        this.userType = data["user_type"];
-        switch(this.userType){
+        this.userPermission = data["user_type"];
+        switch(this.userPermission){
+            case "0":
+              this.showTab2 = false;
+              this.showTab3 = false;
+              break;
             case "1":
               this.showTab2 = true;
               this.showTab3 = false;
               break;
             case "2":
-            case "4":
               this.showTab2 = true;
               this.showTab3 = true;
-              break;
-            case "3":
-              this.showTab2 = false;
-              this.showTab3 = false;
               break;
         }
       });

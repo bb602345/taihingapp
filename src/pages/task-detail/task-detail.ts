@@ -119,7 +119,10 @@ export class TaskDetailPage {
   }
 
   initFollowerList(){
-    this.followerList.getFollowerList(this.userType, ()=>{
+    this.fRow0 = new Array();
+    this.fRow1 = new Array();
+    
+    this.followerList.getFollowerList(this.userID, ()=>{
       let fList = this.followerList.FollowerList;
 
       let fRow0 = fList.filter((value)=>{ return value.type == 0; })
@@ -157,15 +160,11 @@ export class TaskDetailPage {
         if(row.length == 3 || i + 1 == fRow1.length)
           this.fRow1.push(row);
       }
-      
+
       if(this.fRow1.length == 0)
-      this.showContractor = false;
+        this.showContractor = false;
       if(this.fRow0.length == 0)
         this.showStaff = false;
-
-      console.log(this.showContractor);
-      console.log(this.fRow1.length);
-      console.log(this.fRow1.length == 0);
     });
 
   }

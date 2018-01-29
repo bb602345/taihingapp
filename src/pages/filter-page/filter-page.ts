@@ -31,9 +31,9 @@ export class FilterPage {
 
   constructor(public navCtrl: NavController, navParams: NavParams, shopList: ShopList, public storage: Storage) {
     this.parentDelegate = navParams.get("parentDelegate");
-    shopList.getShopList(this.parentDelegate.userType, (shopList) => {
+    shopList.getShopList(this.parentDelegate.userID, (shopList) => {
       shopList.unshift({shopCode: "全部", shopName: ""});
-      if(this.parentDelegate.userType < 3){
+      if(this.parentDelegate.foreigncontractor == null){
         shopList.unshift({shopCode: "後勤", shopName: ""});
       }
       this.FullShopList = shopList;
