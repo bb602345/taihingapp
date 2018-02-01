@@ -10,6 +10,9 @@
         <ion-label class="header">用戶</ion-label>
         <ion-label id="lb-user-name">{{userName}}</ion-label>
       </ion-item>
+      <button ion-item (click)="changePassword()">
+        <ion-label class="header">更改密碼</ion-label>
+      </button>
       <button ion-item (click)="logout()">
         <ion-label class="header">登出</ion-label>
       </button>

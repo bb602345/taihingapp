@@ -9,6 +9,7 @@ import { PushNotificationService } from '../providers/push-notification-service'
 
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login-page/login-page';
+import { ChangePasswordPage } from '../pages/change-password/change-password';
 
 
 @Component({
@@ -34,7 +35,7 @@ export class MyApp {
       StatusBar.hide();
       Splashscreen.hide();
       //this.initGeolocation();
-      this.initPushNotification();
+      //this.initPushNotification();
 
       storage.get('USER').then((val)=>{
         if(val != null){
@@ -69,6 +70,10 @@ export class MyApp {
     this.storage.remove("USER");
     this.menu.close();
     this.nav.setRoot(LoginPage);
+  }
+  changePassword(){
+    this.menu.close();
+    this.nav.setRoot(ChangePasswordPage);
   }
 
   initGeolocation(){

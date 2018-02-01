@@ -13,6 +13,7 @@ import { DrawingPage } from '../pages/drawing-page/drawing-page';
 import { AssignTaskListPage } from '../pages/assign-task-list/assign-task-list';
 import { FilterPage } from '../pages/filter-page/filter-page';
 import { RepairPartsPage} from '../pages/repair-parts/repair-parts';
+import { ChangePasswordPage } from '../pages/change-password/change-password';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { RepairPartsPage} from '../pages/repair-parts/repair-parts';
     AssignTaskListPage,
     DrawingPage,
     FilterPage,
-    RepairPartsPage
+    RepairPartsPage,
+    ChangePasswordPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -42,7 +44,8 @@ import { RepairPartsPage} from '../pages/repair-parts/repair-parts';
     AssignTaskListPage,
     DrawingPage,
     FilterPage,
-    RepairPartsPage
+    RepairPartsPage,
+    ChangePasswordPage
   ],
   providers: [
     Firebase,
