@@ -79,13 +79,10 @@ export class MyApp {
   initGeolocation(){
     let watch = Geolocation.watchPosition();
     this.subscription = watch.subscribe((data) => {
-      console.log(data);
       if(data as Geoposition){
         let pos = (data as Geoposition);
         this.storage.set("LAT", pos.coords.latitude);
         this.storage.set("LON", pos.coords.longitude);
-        console.log("LAT::", pos.coords.latitude);
-        console.log("LON::", pos.coords.longitude);
       }else{
         let err = (data as PositionError);
       }

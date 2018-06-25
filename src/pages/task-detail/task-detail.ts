@@ -27,6 +27,7 @@ export class TaskDetailPage {
   followed_results: string;
   follower_remarks: string;
   replied: string;
+  pending: boolean;
   telHREF: string;
   RepairPrice: number;
   
@@ -38,6 +39,7 @@ export class TaskDetailPage {
 
   userID: number;
   userType: number;
+  foreigncontractor: number;
   followerIdList: Array<number>;
   Parent: any;
 
@@ -93,18 +95,22 @@ export class TaskDetailPage {
     this.showStaff = true;
     this.showContractor = true;
 
+    /*
     storage.get("USER").then((val)=>{
       let data = JSON.parse(val);
       this.userID = data.user_id;
       this.userType = data.user_type;
     });
+    */
   }
 
   ionViewWillEnter(){
     this.storage.get("USER").then((val)=>{
       let data = JSON.parse(val);
+      console.log(data);
       this.userID = data.user_id;
       this.userType = data.user_type;
+      this.foreigncontractor = data.foreigncontractor;
       if(this.userType < 2) return;
 
       if(this.TaskStatus == 2){
@@ -203,6 +209,7 @@ export class TaskDetailPage {
     this.selectedTask.follower_remarks = this.follower_remarks;
     this.selectedTask.close_date = (dtText.innerHTML == "") ? "" : this.closeDate;
     this.selectedTask.replied = this.replied ? 1 : 0;
+    this.selectedTask.pending = this.pending ? 1 : 0;
 
     let link = "http://taihingroast.com/soap/RepairTask/updateTaskInfo.php";
     let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -214,6 +221,7 @@ export class TaskDetailPage {
         followedResult: this.getTextWithEncode(this.selectedTask.followed_results),
         followerRemark: this.getTextWithEncode(this.selectedTask.follower_remarks),
         replied: this.selectedTask.replied,
+        pending: this.selectedTask.pending,
         closeDate: this.selectedTask.close_date,
         dataURL: this.imageDataURL,
         repairPrice: this.RepairPrice,

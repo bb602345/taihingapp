@@ -159,6 +159,10 @@
             <ion-option value="550">$550 - 急單</ion-option>
           </ion-select>
         </ion-item>
+        <ion-item *ngIf="foreigncontractor >= 1">
+          <ion-label class="header" fixed>Pending</ion-label>
+          <ion-checkbox color="dark" checked="false" item-right [(ngModel)]="pending"></ion-checkbox>
+       </ion-item>
         <ion-item>
             <ion-label class="header" fixed>已完成</ion-label>
             <ion-checkbox color="dark" checked="false" item-right [(ngModel)]="replied"></ion-checkbox>

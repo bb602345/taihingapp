@@ -44,7 +44,6 @@ export class LoginPage {
        let obj = resp.json();
        switch (obj["result"]){
          case "OK":
-         console.log(obj);
           let data = JSON.stringify({
             user_id: obj.int_id,
             user_type: obj.int_type,

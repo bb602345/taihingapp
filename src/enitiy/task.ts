@@ -26,6 +26,7 @@ export class Task {
     follower_remarks: string;
 
     replied: number;
+    pending: number;
     close_date: string;
 
     color: string;
@@ -61,6 +62,7 @@ export class Task {
         this.lat               = obj["lat"];
         this.long              = obj["long"];
         this.repair_price      = obj["repair_price"];
+        this.pending           = obj["pending"];
         if(obj.parts != null){
           this.Parts             = obj["parts"]["obj"];
           this.PartsTotal        = obj["parts"]["total"];
