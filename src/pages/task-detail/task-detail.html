@@ -92,7 +92,7 @@
       <span style="color:#6C276A; font-size:16px; font-weight:bold">分店 : #{{selectedTask.shop_code}} {{selectedTask.shop}}</span>
       <br><a *ngIf="selectedTask.shop_tel" [attr.href]="telHREF" ion-button small >致電分店</a>
       <br><br>
-      <ion-list id="task-detail-list">
+      <ion-list radio-group [(ngModel)]="status" id="task-detail-list">
         <ion-item>
           <ion-label class="header" fixed>機器編號</ion-label>
           <ion-input [value]="device_num" [(ngModel)]="device_num"></ion-input>
@@ -161,11 +161,13 @@
         </ion-item>
         <ion-item *ngIf="foreigncontractor >= 1">
           <ion-label class="header" fixed>Pending</ion-label>
-          <ion-checkbox color="dark" checked="false" item-right [(ngModel)]="pending"></ion-checkbox>
+          <ion-radio value="pending" ></ion-radio>
+          <!-- <ion-checkbox color="dark" checked="false" item-right [(ngModel)]="pending"></ion-checkbox> -->
        </ion-item>
         <ion-item>
             <ion-label class="header" fixed>已完成</ion-label>
-            <ion-checkbox color="dark" checked="false" item-right [(ngModel)]="replied"></ion-checkbox>
+            <ion-radio value="replied" ></ion-radio>
+            <!-- <ion-checkbox color="dark" checked="false" item-right [(ngModel)]="replied"></ion-checkbox> -->
         </ion-item>
       </ion-list>
       <button ion-button style="float:right; padding:12px 20px;font-size:16px;" (click)="updateFolloweResult()">提交</button>

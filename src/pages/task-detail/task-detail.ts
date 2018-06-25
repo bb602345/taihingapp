@@ -28,6 +28,7 @@ export class TaskDetailPage {
   follower_remarks: string;
   replied: string;
   pending: boolean;
+  status: string;
   telHREF: string;
   RepairPrice: number;
   
@@ -208,8 +209,8 @@ export class TaskDetailPage {
     this.selectedTask.followed_results = this.followed_results;
     this.selectedTask.follower_remarks = this.follower_remarks;
     this.selectedTask.close_date = (dtText.innerHTML == "") ? "" : this.closeDate;
-    this.selectedTask.replied = this.replied ? 1 : 0;
-    this.selectedTask.pending = this.pending ? 1 : 0;
+    this.selectedTask.replied = this.status == "replied" ? 1 : 0;
+    this.selectedTask.pending = this.status == "pending" ? 1 : 0;
 
     let link = "http://taihingroast.com/soap/RepairTask/updateTaskInfo.php";
     let headers = new Headers({ 'Content-Type': 'application/json' });
